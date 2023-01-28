@@ -13,12 +13,7 @@ namespace Features.Lobby
         public event Action OnSomeoneConnected;
         public event Action OnSomeoneDisconnected;
 
-        private List<int> _usedSpawnPoints = new List<int>();
-
-        public override void Start()
-        {
-            base.Start();
-        }
+        private readonly List<int> _usedSpawnPoints = new List<int>();
 
         public override void OnClientConnect()
         {
