@@ -1,6 +1,8 @@
 using System;
+using System.Collections.Generic;
 using Mirror;
 using Mirror.Discovery;
+using UnityEngine;
 
 namespace Features.Lobby
 {
@@ -10,6 +12,8 @@ namespace Features.Lobby
         public event Action OnClientDisconnected;
         public event Action OnSomeoneConnected;
         public event Action OnSomeoneDisconnected;
+
+        private List<int> _usedSpawnPoints = new List<int>();
 
         public override void Start()
         {
@@ -51,6 +55,40 @@ namespace Features.Lobby
             }
             
             OnSomeoneConnected?.Invoke();
+        }
+        
+        public override Transform GetStartPosition()
+        {
+            // first remove any dead transforms
+            startPositions.RemoveAll(t => t == null);
+
+            if (startPositions.Count == 0)
+                return null;
+
+            if (playerSpawnMethod == PlayerSpawnMethod.Random)
+            {
+                if (_usedSpawnPoints.Count >= startPositions.Count)
+                {
+                    _usedSpawnPoints.Clear();
+                }
+
+                int startPosIndex;
+                
+                do
+                {
+                    startPosIndex = UnityEngine.Random.Range(0, startPositions.Count);
+                } while (_usedSpawnPoints.Contains(startPosIndex));
+                
+                _usedSpawnPoints.Add(startPosIndex);
+                
+                return startPositions[startPosIndex];
+            }
+            else
+            {
+                Transform startPosition = startPositions[startPositionIndex];
+                startPositionIndex = (startPositionIndex + 1) % startPositions.Count;
+                return startPosition;
+            }
         }
     }
 }
