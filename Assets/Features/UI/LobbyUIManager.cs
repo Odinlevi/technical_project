@@ -40,6 +40,7 @@ namespace Features.UI
             _createRoomButton.onClick.AddListener(OnCreateRoomButton);
             _cancelAsClientButton.onClick.AddListener(OnCancelAsClientButton);
             _cancelAsHostButton.onClick.AddListener(OnCancelAsHostButton);
+            _startGameButton.onClick.AddListener(OnStartButton);
         }
 
         private void OnEnable()
@@ -74,6 +75,12 @@ namespace Features.UI
         {
             _networkManager.networkAddress = _createInput.text;
             _networkManager.StartHost();
+        }
+
+        private void OnStartButton()
+        {
+            _networkManager.allPlayersReady = true;
+            _networkManager.ServerChangeScene(_networkManager.GameplayScene);
         }
 
         private void OnCancelAsClientButton()
