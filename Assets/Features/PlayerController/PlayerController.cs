@@ -1,6 +1,6 @@
-﻿using Mirror;
+﻿using Features.PlayerCamera;
+using Mirror;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Features.PlayerController
 {
@@ -44,8 +44,15 @@ namespace Features.PlayerController
 
         public override void OnStartLocalPlayer()
         {
-            cam = Camera.main.transform;
+            var orbitCamera = Camera.main.GetComponent<OrbitCamera>();
+            cam = orbitCamera.transform;
             characterController.enabled = true;
+            
+            if (isLocalPlayer)
+            {
+                orbitCamera.focus = transform;
+                orbitCamera.enabled = true;
+            }
         }
 
         private void Update()

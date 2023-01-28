@@ -1,13 +1,13 @@
 ﻿using UnityEngine;
 using UnityEngine.Serialization;
 
-namespace Features.OrbitCamera
+namespace Features.PlayerCamera
 {
 
     [RequireComponent(typeof(Camera))]
     public class OrbitCamera : MonoBehaviour
     {
-        [SerializeField] private Transform _focus = default;
+        public Transform focus = default;
         [SerializeField, Range(1f, 20f)] private float _distance = 5f;
         [SerializeField, Min(0f)] private float _focusRadius = 1f;
 
@@ -19,9 +19,9 @@ namespace Features.OrbitCamera
         [SerializeField, Range(1f, 720f)] private float _rotationSpeed = 90f;
         [SerializeField, Range(-89f, 89f)] private float _minVerticalAngle = -30f, _maxVerticalAngle = 60f;
 
-        private void Awake()
+        private void OnEnable()
         {
-            _focusPoint = _focus.position;
+            _focusPoint = focus.position;
         }
 
         private void LateUpdate()
@@ -46,7 +46,7 @@ namespace Features.OrbitCamera
 
         private void UpdateFocusPoint()
         {
-            Vector3 targetPoint = _focus.position;
+            Vector3 targetPoint = focus.position;
             if (_focusRadius > 0f)
             {
                 float distance = Vector3.Distance(targetPoint, _focusPoint);
