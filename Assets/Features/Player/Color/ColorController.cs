@@ -19,8 +19,8 @@ namespace Features.Player.Color
             if (_meshRenderer == null)
                 _meshRenderer = GetComponent<MeshRenderer>();
         }
-
-        public override void OnStartLocalPlayer()
+        
+        private void Start()
         {
             SetupDefaultColor(isLocalPlayer);
         }

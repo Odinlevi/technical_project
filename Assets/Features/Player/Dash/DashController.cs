@@ -36,11 +36,7 @@ namespace Features.Player.Dash
             
             if (dash && !isDashing && !isDashCooldown)
             {
-                isDashing = true;
-                // _dashDirection = direction;
-                _dashDistanceLeft = dashDistance;
-                isDashCooldown = true;
-                _dashCooldownLeft = dashCooldown;
+                RpcUseDash();
             }
 
             if (isDashing)
@@ -57,5 +53,16 @@ namespace Features.Player.Dash
                 isDashing = false;
             }
         }
+
+        [ClientCallback]
+        private void RpcUseDash()
+        {
+            isDashing = true;
+            // _dashDirection = direction;
+            _dashDistanceLeft = dashDistance;
+            isDashCooldown = true;
+            _dashCooldownLeft = dashCooldown;
+        }
+        
     }
 }
