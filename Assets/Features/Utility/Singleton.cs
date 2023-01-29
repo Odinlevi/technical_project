@@ -22,8 +22,6 @@ namespace Features.Utility
             }
 
             _instance = this as T;
-
-            Debug.Log("??");
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using Features.Player.Camera;
+﻿using Features.Gameplay;
+using Features.Lobby;
+using Features.Player.Camera;
 using Features.Player.Color;
 using Features.Player.Contact;
 using Features.Player.Dash;
@@ -6,6 +8,7 @@ using Features.Player.Direction;
 using Features.Player.Health;
 using Features.Player.Movement;
 using Features.Player.Score;
+using Features.UI;
 using Mirror;
 using UnityEngine;
 
@@ -89,8 +92,6 @@ namespace Features.Player.Controller
             _dashController.OnUpdate(moveDirection, _characterController);
             _movementController.OnUpdate(inputDirection, moveDirection, _characterController);
             _healthController.OnUpdate();
-            
-            
         }
 
         public void ServerOnPlayerHit()
@@ -99,10 +100,15 @@ namespace Features.Player.Controller
 
             if (_scoreController.score >= _scoreController.scoreToWin)
             {
-                RpcFollowUpOnSomeoneWon();
+                if (!GameplayManager.Instance.isRestarting)
+                {
+                    RpcFollowUpOnSomeoneWon(netId.ToString(), _scoreController.score);
+                    GameplayManager.Instance.ServerOnPlayerHasWinScore();
+                }
+
             }
         }
-
+        
         public void ServerOnPlayerGotHit()
         {
             _healthController.ChangeInvincibilityState(true);
@@ -119,9 +125,33 @@ namespace Features.Player.Controller
         }
         
         [ClientRpc]
-        public void RpcFollowUpOnSomeoneWon()
+        private void RpcFollowUpOnSomeoneWon(string winnerName, int winnerScore)
         {
-            Debug.Log("SOMEONE WON!");
+            GameplayManager.Instance.OnPlayerHasWinScore(winnerName, winnerScore);
+        }
+
+        [ServerCallback]
+        public void ServerResetPlayer()
+        {
+            _healthController.isInvincible = false;
+            _dashController.isDashing = false;
+            _scoreController.score = 0;
+            
+            RpcResetPlayer();
+        }
+        
+        [ClientRpc]
+        private void RpcResetPlayer()
+        {
+            GameplayUIManager.Instance.HideWinScreen();
+            _characterController.enabled = false;
+            _colorController.ChangeColorToDefault();
+            var networkManager = NetworkManager.singleton as BouncerNetworkManager;
+            var startPos = networkManager.GetStartPosition();
+            transform.position = startPos.position;
+            transform.rotation = startPos.rotation;
+            
+            _characterController.enabled = isLocalPlayer;
         }
     }
 }
