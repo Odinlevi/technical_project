@@ -11,11 +11,13 @@ namespace Features.Player.Dash
         public float dashSpeed = 20f;
         public float dashCooldown = 1f;
 
-        private Vector3 _dashDirection;
+        // private Vector3 _dashDirection;
         private float _dashDistanceLeft;
+        private float _dashCooldownLeft;
 
         public bool dash;
         public bool isDashing;
+        public bool isDashCooldown;
 
         private void Update()
         {
@@ -24,13 +26,23 @@ namespace Features.Player.Dash
 
         public void OnUpdate(Vector3 direction, CharacterController characterController)
         {
-            if (dash && !isDashing)
+            if (isDashCooldown)
             {
-                isDashing = true;
-                _dashDirection = direction;
-                _dashDistanceLeft = dashDistance;
+                _dashCooldownLeft -= Time.fixedDeltaTime;
+
+                if (_dashCooldownLeft < 0f)
+                    isDashCooldown = false;
             }
             
+            if (dash && !isDashing && !isDashCooldown)
+            {
+                isDashing = true;
+                // _dashDirection = direction;
+                _dashDistanceLeft = dashDistance;
+                isDashCooldown = true;
+                _dashCooldownLeft = dashCooldown;
+            }
+
             if (isDashing)
             {
                 if (_dashDistanceLeft > 0f)

@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace Features.Player.Color
 {
+    [RequireComponent(typeof(MeshRenderer))]
     public class ColorController : NetworkBehaviour
     {
         [SerializeField] private UnityEngine.Color _localPlayerColor;
@@ -12,7 +13,13 @@ namespace Features.Player.Color
         [SerializeField] private MeshRenderer _meshRenderer;
         
         private UnityEngine.Color _defaultColor;
-        
+
+        private void OnValidate()
+        {
+            if (_meshRenderer == null)
+                _meshRenderer = GetComponent<MeshRenderer>();
+        }
+
         public override void OnStartLocalPlayer()
         {
             SetupDefaultColor(isLocalPlayer);

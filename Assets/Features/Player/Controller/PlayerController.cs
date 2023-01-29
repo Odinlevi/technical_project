@@ -1,7 +1,5 @@
-﻿using System;
-using Features.Player.Camera;
+﻿using Features.Player.Camera;
 using Features.Player.Color;
-using Features.Player.Contact;
 using Features.Player.Dash;
 using Features.Player.Direction;
 using Features.Player.Movement;
@@ -15,6 +13,7 @@ namespace Features.Player.Controller
     [RequireComponent(typeof(DashController))]
     [RequireComponent(typeof(DirectionController))]
     [RequireComponent(typeof(NetworkTransform))]
+    [RequireComponent(typeof(ColorController))]
     [RequireComponent(typeof(Rigidbody))]
     public class PlayerController : NetworkBehaviour
     {
@@ -22,6 +21,7 @@ namespace Features.Player.Controller
         [SerializeField] private DirectionController _directionController;
         [SerializeField] private DashController _dashController;
         [SerializeField] private MovementController _movementController;
+        [SerializeField] private ColorController _colorController;
         
         private void OnValidate()
         {
@@ -33,6 +33,8 @@ namespace Features.Player.Controller
                 _dashController = GetComponent<DashController>();
             if (_movementController == null)
                 _movementController = GetComponent<MovementController>();
+            if (_colorController == null)
+                _colorController = GetComponent<ColorController>();
         
             _characterController.enabled = false;
             GetComponent<Rigidbody>().isKinematic = true;
