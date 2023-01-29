@@ -1,10 +1,9 @@
 ﻿using UnityEngine;
-using UnityEngine.Serialization;
 
-namespace Features.PlayerCamera
+namespace Features.Player.Camera
 {
 
-    [RequireComponent(typeof(Camera))]
+    [RequireComponent(typeof(UnityEngine.Camera))]
     public class OrbitCamera : MonoBehaviour
     {
         public Transform focus = default;

@@ -17,9 +17,12 @@ GameObject:
   - component: {fileID: 2826330141695232212}
   - component: {fileID: 2826330141695232215}
   - component: {fileID: 2826330141695232214}
+  - component: {fileID: 1365519259945002306}
+  - component: {fileID: 7312649236554431848}
+  - component: {fileID: 9179217057538369727}
   m_Layer: 0
   m_Name: GamePlayer
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -127,7 +130,7 @@ CharacterController:
   m_GameObject: {fileID: 2826330141695232043}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Height: 1
   m_Radius: 0.5
@@ -149,7 +152,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneId: 0
-  _assetId: 0
+  _assetId: 69929559
   serverOnly: 0
   visible: 2
   hasSpawned: 0
@@ -196,14 +199,61 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0.1
-  characterController: {fileID: 2826330141695232208}
-  cam: {fileID: 0}
+  _characterController: {fileID: 2826330141695232208}
+  _directionController: {fileID: 9179217057538369727}
+  _dashController: {fileID: 7312649236554431848}
+  _movementController: {fileID: 1365519259945002306}
+--- !u!114 &1365519259945002306
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2826330141695232043}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91923ad1d49b45d4a4a2fa3bcd7da1ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
   moveSpeed: 8
-  turnSmoothTime: 0.1
+--- !u!114 &7312649236554431848
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2826330141695232043}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cbe3a3ac089047e7b034bbdac4de0882, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
   dashDistance: 15
-  dashSpeed: 50
-  dashCooldown: 0
-  horizontal: 0
-  vertical: 0
+  dashSpeed: 20
+  dashCooldown: 1
   dash: 0
   isDashing: 0
+--- !u!114 &9179217057538369727
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2826330141695232043}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6fccd77c55e42efb6a082317cde3afa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
+  horizontal: 0
+  vertical: 0
+  turnSmoothTime: 0.1
