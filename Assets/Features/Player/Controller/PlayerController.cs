@@ -18,6 +18,8 @@ namespace Features.Player.Controller
     [RequireComponent(typeof(NetworkTransform))]
     [RequireComponent(typeof(ColorController))]
     [RequireComponent(typeof(ContactController))]
+    [RequireComponent(typeof(HealthController))]
+    [RequireComponent(typeof(ScoreController))]
     [RequireComponent(typeof(Rigidbody))]
     public class PlayerController : NetworkBehaviour
     {
@@ -77,6 +79,8 @@ namespace Features.Player.Controller
             else
                 _colorController.ChangeColorToDefault();
             
+            _scoreController.OnUpdate();
+            
             if (!isLocalPlayer ||  !_characterController.enabled)
                 return;
             
@@ -91,7 +95,12 @@ namespace Features.Player.Controller
 
         public void ServerOnPlayerHit()
         {
-            
+            _scoreController.AddScore();
+
+            if (_scoreController.score >= _scoreController.scoreToWin)
+            {
+                RpcFollowUpOnSomeoneWon();
+            }
         }
 
         public void ServerOnPlayerGotHit()
@@ -107,6 +116,12 @@ namespace Features.Player.Controller
         public void RpcOnPlayerGotHit()
         {
             _healthController.StartCooldown();
+        }
+        
+        [ClientRpc]
+        public void RpcFollowUpOnSomeoneWon()
+        {
+            Debug.Log("SOMEONE WON!");
         }
     }
 }

@@ -8,7 +8,8 @@ namespace Features.Player.Health
         public float invincibilityTime = 3f;
         [SyncVar]
         public bool isInvincible;
-
+        public bool waitingForHitAuthor;
+        
         private bool _isCooldown;
         private float _cooldownTimeLeft;
 
@@ -16,11 +17,14 @@ namespace Features.Player.Health
         public void ChangeInvincibilityState(bool state)
         {
             isInvincible = state;
+            Debug.Log($"3, {isInvincible}");
+
         }
 
         [Command]
         public void AskServerToChangeInvincibilityState(bool state)
         {
+            Debug.Log("2");
             ChangeInvincibilityState(state);
         }
 
@@ -40,6 +44,7 @@ namespace Features.Player.Health
                     return;
                 }
 
+                Debug.Log("1");
                 AskServerToChangeInvincibilityState(false);
                 _isCooldown = false;
 
