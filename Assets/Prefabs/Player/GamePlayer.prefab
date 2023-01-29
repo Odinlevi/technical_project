@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2826330141695232046}
   - component: {fileID: 2826330141695232041}
   - component: {fileID: 2826330141695232040}
+  - component: {fileID: -3022871732114372463}
   - component: {fileID: 2826330141695232044}
   - component: {fileID: 2826330141695232208}
   - component: {fileID: 2826330141695232212}
@@ -21,6 +22,8 @@ GameObject:
   - component: {fileID: 7312649236554431848}
   - component: {fileID: 9179217057538369727}
   - component: {fileID: 9066522777046191547}
+  - component: {fileID: 2144965392606473561}
+  - component: {fileID: 4959224846414638638}
   m_Layer: 0
   m_Name: GamePlayer
   m_TagString: Player
@@ -105,6 +108,19 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!65 &-3022871732114372463
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2826330141695232043}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.1, y: 1.1, z: 1.1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &2826330141695232044
 Rigidbody:
@@ -205,6 +221,9 @@ MonoBehaviour:
   _dashController: {fileID: 7312649236554431848}
   _movementController: {fileID: 1365519259945002306}
   _colorController: {fileID: 9066522777046191547}
+  _contactController: {fileID: 2144965392606473561}
+  _healthController: {fileID: 4959224846414638638}
+  _scoreController: {fileID: 0}
 --- !u!114 &1365519259945002306
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -279,3 +298,38 @@ MonoBehaviour:
   _otherPlayerColor: {r: 1, g: 0, b: 0, a: 1}
   _hurtColor: {r: 0.9740491, g: 0, b: 1, a: 1}
   _meshRenderer: {fileID: 2826330141695232041}
+--- !u!114 &2144965392606473561
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2826330141695232043}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4026956c691646b592d7d0d275673e42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
+  _playerController: {fileID: 2826330141695232214}
+  _dashController: {fileID: 7312649236554431848}
+  _healthController: {fileID: 4959224846414638638}
+--- !u!114 &4959224846414638638
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2826330141695232043}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b754c58741e0484bbc993408f7c95116, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
+  invincibilityTime: 3
+  isInvincible: 0

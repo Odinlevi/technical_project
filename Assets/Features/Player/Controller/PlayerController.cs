@@ -1,8 +1,11 @@
 ﻿using Features.Player.Camera;
 using Features.Player.Color;
+using Features.Player.Contact;
 using Features.Player.Dash;
 using Features.Player.Direction;
+using Features.Player.Health;
 using Features.Player.Movement;
+using Features.Player.Score;
 using Mirror;
 using UnityEngine;
 
@@ -14,6 +17,7 @@ namespace Features.Player.Controller
     [RequireComponent(typeof(DirectionController))]
     [RequireComponent(typeof(NetworkTransform))]
     [RequireComponent(typeof(ColorController))]
+    [RequireComponent(typeof(ContactController))]
     [RequireComponent(typeof(Rigidbody))]
     public class PlayerController : NetworkBehaviour
     {
@@ -22,6 +26,9 @@ namespace Features.Player.Controller
         [SerializeField] private DashController _dashController;
         [SerializeField] private MovementController _movementController;
         [SerializeField] private ColorController _colorController;
+        [SerializeField] private ContactController _contactController;
+        [SerializeField] private HealthController _healthController;
+        [SerializeField] private ScoreController _scoreController;
         
         private void OnValidate()
         {
@@ -35,6 +42,12 @@ namespace Features.Player.Controller
                 _movementController = GetComponent<MovementController>();
             if (_colorController == null)
                 _colorController = GetComponent<ColorController>();
+            if (_contactController == null)
+                _contactController = GetComponent<ContactController>();
+            if (_healthController == null)
+                _healthController = GetComponent<HealthController>();
+            if (_scoreController == null)
+                _scoreController = GetComponent<ScoreController>();
         
             _characterController.enabled = false;
             GetComponent<Rigidbody>().isKinematic = true;
@@ -56,12 +69,44 @@ namespace Features.Player.Controller
 
         private void FixedUpdate()
         {
-            if (!isLocalPlayer || _characterController == null || !_characterController.enabled)
+            if (_characterController == null)
                 return;
+                
+            if (_healthController.isInvincible)
+                _colorController.ChangeColorToHurt();
+            else
+                _colorController.ChangeColorToDefault();
+            
+            if (!isLocalPlayer ||  !_characterController.enabled)
+                return;
+            
             var inputDirection = _directionController.GetInputDirection();
             var moveDirection = _directionController.GetMovementDirection(inputDirection);
             _dashController.OnUpdate(moveDirection, _characterController);
             _movementController.OnUpdate(inputDirection, moveDirection, _characterController);
+            _healthController.OnUpdate();
+            
+            
+        }
+
+        public void ServerOnPlayerHit()
+        {
+            
+        }
+
+        public void ServerOnPlayerGotHit()
+        {
+            _healthController.ChangeInvincibilityState(true);
+        }
+        
+        public void RpcOnPlayerHit()
+        {
+            
+        }
+
+        public void RpcOnPlayerGotHit()
+        {
+            _healthController.StartCooldown();
         }
     }
 }

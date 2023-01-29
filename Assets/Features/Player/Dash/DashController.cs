@@ -16,6 +16,7 @@ namespace Features.Player.Dash
         private float _dashCooldownLeft;
 
         public bool dash;
+        [SyncVar]
         public bool isDashing;
         public bool isDashCooldown;
 
@@ -36,7 +37,7 @@ namespace Features.Player.Dash
             
             if (dash && !isDashing && !isDashCooldown)
             {
-                RpcUseDash();
+                ClientAskToUseDash();
             }
 
             if (isDashing)
@@ -49,20 +50,35 @@ namespace Features.Player.Dash
                     
                     return;
                 }
-                
-                isDashing = false;
+
+                ClientReportDashFinished();
             }
         }
 
         [ClientCallback]
-        private void RpcUseDash()
+        private void ClientAskToUseDash()
         {
             isDashing = true;
             // _dashDirection = direction;
             _dashDistanceLeft = dashDistance;
             isDashCooldown = true;
             _dashCooldownLeft = dashCooldown;
+            ServerChangeDashState(true);
         }
-        
+
+        [Command]
+        private void ServerChangeDashState(bool state)
+        {
+            isDashing = state;
+        }
+
+        [Command]
+        private void ClientReportDashFinished()
+        {
+            isDashing = false;
+            ServerChangeDashState(isDashing);
+
+        }
+
     }
 }
