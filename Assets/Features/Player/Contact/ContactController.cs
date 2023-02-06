@@ -33,6 +33,10 @@ namespace Features.Player.Contact
         {
             if (other.CompareTag("Player"))
             {
+                Debug.Log(" ------- ");
+                Debug.Log(this.name);
+                Debug.Log(other.name);
+                Debug.Log(" ------- end ");
                 var otherHealthController = other.GetComponent<HealthController>();
                 
                 var otherIsDashing = other.GetComponent<DashController>().isDashing;
