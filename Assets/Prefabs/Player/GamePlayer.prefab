@@ -534,6 +534,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2826330141695232047}
     m_Modifications:
+    - target: {fileID: 1548343761902635634, guid: 0f1fdc14b11d4dc49b30fd31a1382088, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1548343761902635634, guid: 0f1fdc14b11d4dc49b30fd31a1382088, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 50.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1548343761902635634, guid: 0f1fdc14b11d4dc49b30fd31a1382088, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -16.3
+      objectReference: {fileID: 0}
     - target: {fileID: 3334787359861054599, guid: 0f1fdc14b11d4dc49b30fd31a1382088, type: 3}
       propertyPath: m_Name
       value: KatanaRedEmision
