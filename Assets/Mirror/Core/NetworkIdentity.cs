@@ -1294,7 +1294,6 @@ namespace Mirror
 
             if (connectionToClient?.identity == this)
             {
-                Debug.LogError("RemoveClientAuthority cannot remove authority for a player object");
                 return;
             }
 
