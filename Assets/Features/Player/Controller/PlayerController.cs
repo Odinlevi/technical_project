@@ -5,6 +5,7 @@ using Features.Player.Color;
 using Features.Player.Contact;
 using Features.Player.Dash;
 using Features.Player.Direction;
+using Features.Player.Gravity;
 using Features.Player.Health;
 using Features.Player.Movement;
 using Features.Player.Score;
@@ -16,6 +17,7 @@ namespace Features.Player.Controller
 {
     [RequireComponent(typeof(CharacterController))]
     [RequireComponent(typeof(MovementController))]
+    [RequireComponent(typeof(GravityController))]
     [RequireComponent(typeof(DashController))]
     [RequireComponent(typeof(DirectionController))]
     [RequireComponent(typeof(NetworkTransform))]
@@ -30,6 +32,7 @@ namespace Features.Player.Controller
         [SerializeField] private DirectionController _directionController;
         [SerializeField] private DashController _dashController;
         [SerializeField] private MovementController _movementController;
+        [SerializeField] private GravityController _gravityController;
         [SerializeField] private ColorController _colorController;
         [SerializeField] private ContactController _contactController;
         [SerializeField] private HealthController _healthController;
@@ -45,6 +48,8 @@ namespace Features.Player.Controller
                 _dashController = GetComponent<DashController>();
             if (_movementController == null)
                 _movementController = GetComponent<MovementController>();
+            if (_gravityController == null)
+                _gravityController = GetComponent<GravityController>();
             if (_colorController == null)
                 _colorController = GetComponent<ColorController>();
             if (_contactController == null)
@@ -91,6 +96,7 @@ namespace Features.Player.Controller
             var moveDirection = _directionController.GetMovementDirection(inputDirection);
             _dashController.OnUpdate(moveDirection, _characterController);
             _movementController.OnUpdate(inputDirection, moveDirection, _characterController);
+            _gravityController.OnUpdate(_characterController);
             _healthController.OnUpdate();
         }
 
