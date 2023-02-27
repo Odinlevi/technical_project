@@ -25,8 +25,9 @@ namespace Features.Player.Dash
             dash = Input.GetMouseButton(0);
         }
 
-        public void OnUpdate(Vector3 direction, CharacterController characterController)
+        public bool OnUpdate(Vector3 direction, CharacterController characterController)
         {
+            var startedDashing = false;
             if (isDashCooldown)
             {
                 _dashCooldownLeft -= Time.fixedDeltaTime;
@@ -38,6 +39,7 @@ namespace Features.Player.Dash
             if (dash && !isDashing && !isDashCooldown)
             {
                 ClientAskToUseDash();
+                startedDashing = true;
             }
 
             if (isDashing)
@@ -48,11 +50,13 @@ namespace Features.Player.Dash
                     characterController.Move(movement);
                     _dashDistanceLeft -= movement.magnitude;
                     
-                    return;
+                    return startedDashing;
                 }
 
                 ClientReportDashFinished();
             }
+
+            return startedDashing;
         }
 
         [ClientCallback]

@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 2826330141695232208}
   - component: {fileID: 2826330141695232212}
   - component: {fileID: 2826330141695232215}
+  - component: {fileID: 3800241669286522320}
   - component: {fileID: 2826330141695232214}
   - component: {fileID: 1365519259945002306}
   - component: {fileID: 7312649236554431848}
@@ -26,6 +27,7 @@ GameObject:
   - component: {fileID: 4959224846414638638}
   - component: {fileID: 7995685472773535957}
   - component: {fileID: 505458843333411292}
+  - component: {fileID: 2775803650933729469}
   m_Layer: 0
   m_Name: GamePlayer
   m_TagString: Player
@@ -205,6 +207,23 @@ MonoBehaviour:
   positionSensitivity: 0.01
   rotationSensitivity: 0.01
   scaleSensitivity: 0.01
+--- !u!114 &3800241669286522320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2826330141695232043}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f6f3bf89aa97405989c802ba270f815, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 1
+  syncMode: 0
+  syncInterval: 0.1
+  clientAuthority: 1
+  animator: {fileID: 7771567655673871154}
 --- !u!114 &2826330141695232214
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -229,6 +248,7 @@ MonoBehaviour:
   _contactController: {fileID: 2144965392606473561}
   _healthController: {fileID: 4959224846414638638}
   _scoreController: {fileID: 7995685472773535957}
+  _slashController: {fileID: 2775803650933729469}
 --- !u!114 &1365519259945002306
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -260,8 +280,8 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0.1
-  dashDistance: 50
-  dashSpeed: 250
+  dashDistance: 35
+  dashSpeed: 220
   dashCooldown: 1
   dash: 0
   isDashing: 0
@@ -372,8 +392,25 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0.1
-  gravityForce: 5
+  gravityForce: 20
   gravityDirection: {x: 0, y: -1, z: 0}
+--- !u!114 &2775803650933729469
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2826330141695232043}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6dbc293426da4d56a1b2001709990d3a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
+  _networkAnimator: {fileID: 3800241669286522320}
+  isSlashingTrigger: isSlashing
 --- !u!1 &5422239872843714736
 GameObject:
   m_ObjectHideFlags: 0
