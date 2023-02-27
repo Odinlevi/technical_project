@@ -1,5 +1,6 @@
 ﻿using Features.Gameplay;
 using Features.Lobby;
+using Features.Player.Animation;
 using Features.Player.Camera;
 using Features.Player.Color;
 using Features.Player.Contact;
@@ -37,6 +38,7 @@ namespace Features.Player.Controller
         [SerializeField] private ContactController _contactController;
         [SerializeField] private HealthController _healthController;
         [SerializeField] private ScoreController _scoreController;
+        [SerializeField] private SlashController _slashController;
         
         private void OnValidate()
         {
@@ -58,6 +60,8 @@ namespace Features.Player.Controller
                 _healthController = GetComponent<HealthController>();
             if (_scoreController == null)
                 _scoreController = GetComponent<ScoreController>();
+            if (_slashController == null)
+                _slashController = GetComponent<SlashController>();
         
             _characterController.enabled = false;
             GetComponent<Rigidbody>().isKinematic = true;
@@ -94,10 +98,11 @@ namespace Features.Player.Controller
             
             var inputDirection = _directionController.GetInputDirection();
             var moveDirection = _directionController.GetMovementDirection(inputDirection);
-            _dashController.OnUpdate(moveDirection, _characterController);
+            var startedDashing = _dashController.OnUpdate(moveDirection, _characterController);
             _movementController.OnUpdate(inputDirection, moveDirection, _characterController);
             _gravityController.OnUpdate(_characterController);
             _healthController.OnUpdate();
+            _slashController.OnUpdate(startedDashing);
         }
 
         public void ServerOnPlayerHit()
