@@ -25,6 +25,7 @@ GameObject:
   - component: {fileID: 2144965392606473561}
   - component: {fileID: 4959224846414638638}
   - component: {fileID: 7995685472773535957}
+  - component: {fileID: 505458843333411292}
   m_Layer: 0
   m_Name: GamePlayer
   m_TagString: Player
@@ -223,6 +224,7 @@ MonoBehaviour:
   _directionController: {fileID: 9179217057538369727}
   _dashController: {fileID: 7312649236554431848}
   _movementController: {fileID: 1365519259945002306}
+  _gravityController: {fileID: 505458843333411292}
   _colorController: {fileID: 9066522777046191547}
   _contactController: {fileID: 2144965392606473561}
   _healthController: {fileID: 4959224846414638638}
@@ -258,8 +260,8 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0.1
-  dashDistance: 100
-  dashSpeed: 500
+  dashDistance: 50
+  dashSpeed: 250
   dashCooldown: 1
   dash: 0
   isDashing: 0
@@ -355,6 +357,23 @@ MonoBehaviour:
   _textMesh: {fileID: 629254227415915486}
   score: 0
   scoreToWin: 3
+--- !u!114 &505458843333411292
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2826330141695232043}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0481e1009f6b4907a852eb71d343cb82, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
+  gravityForce: 5
+  gravityDirection: {x: 0, y: -1, z: 0}
 --- !u!1 &5422239872843714736
 GameObject:
   m_ObjectHideFlags: 0
@@ -534,18 +553,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2826330141695232047}
     m_Modifications:
-    - target: {fileID: 1548343761902635634, guid: 0f1fdc14b11d4dc49b30fd31a1382088, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 2.6
-      objectReference: {fileID: 0}
-    - target: {fileID: 1548343761902635634, guid: 0f1fdc14b11d4dc49b30fd31a1382088, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 50.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1548343761902635634, guid: 0f1fdc14b11d4dc49b30fd31a1382088, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -16.3
-      objectReference: {fileID: 0}
     - target: {fileID: 3334787359861054599, guid: 0f1fdc14b11d4dc49b30fd31a1382088, type: 3}
       propertyPath: m_Name
       value: KatanaRedEmision
