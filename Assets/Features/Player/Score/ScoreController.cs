@@ -21,7 +21,8 @@ namespace Features.Player.Score
         public void OnUpdate()
         {
             _textMesh.text = $"{score}";
-            _textMesh.transform.LookAt(UnityEngine.Camera.main.transform);
+            _textMesh.transform.rotation = Quaternion.LookRotation(transform.position - UnityEngine.Camera.main.transform.position);
+            // _textMesh.transform.Rotate(new Vector3(0, 0, 1), 180);
         }
     }
 }
