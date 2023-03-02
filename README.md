@@ -1,2 +1,1 @@
-﻿Maxim Nichiforov
-Volcov Oleg
+﻿Maxim Nichiforov, Volcov Oleg
