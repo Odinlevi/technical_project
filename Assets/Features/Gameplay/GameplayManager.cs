@@ -54,7 +54,7 @@ namespace Features.Gameplay
         
         private void ServerRestartGame()
         {
-            _networkManager.ServerChangeScene(_networkManager.GameplayScene);
+            _networkManager.ServerChangeScene(_networkManager.RRGameplayScene);
         }
 
         
