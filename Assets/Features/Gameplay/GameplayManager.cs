@@ -15,6 +15,8 @@ namespace Features.Gameplay
         public float timeToRestart;
         public bool isRestarting;
         private float _timer;
+        
+        private BouncerNetworkManager _networkManager;
 
         private List<PlayerController> _players = new List<PlayerController>();
         
@@ -28,6 +30,11 @@ namespace Features.Gameplay
         {
             _timer = timeToRestart;
             isRestarting = true;
+        }
+
+        private void Start()
+        {
+            _networkManager = NetworkManager.singleton as BouncerNetworkManager;
         }
 
         private void FixedUpdate()
@@ -47,13 +54,7 @@ namespace Features.Gameplay
         
         private void ServerRestartGame()
         {
-            _players.Clear();
-            _players.AddRange(FindObjectsOfType<PlayerController>());
-            
-            foreach (var player in _players)
-            {
-                player.ServerResetPlayer();
-            }
+            _networkManager.ServerChangeScene(_networkManager.GameplayScene);
         }
 
         
