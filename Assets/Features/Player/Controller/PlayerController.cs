@@ -1,4 +1,5 @@
-﻿using Features.Gameplay;
+﻿using System;
+using Features.Gameplay;
 using Features.Lobby;
 using Features.Player.Animation;
 using Features.Player.Camera;
@@ -163,6 +164,24 @@ namespace Features.Player.Controller
             transform.rotation = startPos.rotation;
             
             _characterController.enabled = isLocalPlayer;
+        }
+
+        private void OnEnable()
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
+        
+        private void OnDisable()
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+        
+        private void OnDestroy()
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
         }
     }
 }
