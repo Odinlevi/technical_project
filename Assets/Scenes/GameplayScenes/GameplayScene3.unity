@@ -5826,7 +5826,7 @@ MonoBehaviour:
   _distance: 13
   _focusRadius: 1
   _focusCentering: 0.5
-  _rotationSpeed: 515
+  _rotationSpeed: 200
   _minVerticalAngle: -30
   _maxVerticalAngle: 60
 --- !u!114 &221798054
